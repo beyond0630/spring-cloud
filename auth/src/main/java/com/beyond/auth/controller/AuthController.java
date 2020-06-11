@@ -2,9 +2,7 @@ package com.beyond.auth.controller;
 
 import com.beyond.auth.service.AuthService;
 import com.beyond.common.result.AuthUser;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author beyond
@@ -19,8 +17,13 @@ public class AuthController {
     public AuthController(final AuthService authService) {this.authService = authService;}
 
     @GetMapping
-    public AuthUser verifyAuth(String token) {
+    public AuthUser verifyAuth(@RequestHeader(value = "Authorization") String token) {
         return authService.verifyAuth(token);
+    }
+
+    @PostMapping
+    public AuthUser login() {
+        return new AuthUser(2);
     }
 
 }

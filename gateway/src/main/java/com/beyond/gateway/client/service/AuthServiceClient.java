@@ -4,7 +4,7 @@ import com.beyond.common.result.AuthUser;
 import com.beyond.gateway.client.fallback.AuthServiceFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * @author beyond
@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AuthServiceClient {
 
     @GetMapping(value = "/api/auth")
-    AuthUser verifyAuth(@RequestParam(value = "token") String token);
+    AuthUser verifyAuth(@RequestHeader(value = "Authorization") String token);
 }

@@ -33,10 +33,35 @@ spring:
         filters:
           - Authentication
           - RewritePath=/order/(.*), /api/order/$\1
+      - id: path_route
+        uri: http://localhost:10001
+        predicates:
+          - Path=/auth/**
+        filters:
+          - Authentication
+          - RewritePath=/auth/(.*), /api/auth/$\1
+
+app:
+  gateway:
+    exclude-requests:
+    - uri: /auth
+      method: POST
 
 feign:
   hystrix:
     enabled: true
+
+hystrix:
+  command:
+    default:  #default全局有效，service id指定应用有效
+      execution:
+        timeout:
+          #是否开启超时熔断
+          enabled: false
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 4000 #断路器超时时间，默认1000ms
+
 
 management:
   endpoint:

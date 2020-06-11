@@ -1,5 +1,5 @@
 ## **`项目简介`**
-`spring cloud` 是一个学习 `spring clode` 的演示项目
+`spring cloud` 是一个学习 `spring cloud` 的演示项目
 
 ## 各 Module 介绍
 
