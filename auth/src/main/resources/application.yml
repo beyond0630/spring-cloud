@@ -1,0 +1,37 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: auth
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd'T'HH:mm:ssXXX
+    serialization:
+      indent_output: false
+      fail_on_empty_beans: false
+    defaultPropertyInclusion: NON_NULL
+    deserialization:
+      fail_on_unknown_properties: false
+    parser:
+      allow_unquoted_control_chars: true
+      allow_single_quotes: true
+  cloud:
+    consul:
+      host: 10.0.0.121
+      port: 8500
+      enabled: true
+      discovery:
+        enabled: true
+        register: true
+        service-name: ${spring.application.name}
+        health-check-path: /actuator/health
+        health-check-interval: 15s
+        tags: spring-cloud-${spring.application.name}
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+
+management:
+  endpoint:
+    health:
+      show-details: always
